@@ -1,0 +1,332 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+:root{
+  --neon-a: #00f5ff;
+  --neon-b: #ff33cc;
+  --glass-bg: rgba(7, 7, 7, 0.04);
+  --glass-border: rgba(17, 17, 17, 0.12);
+}
+
+/* Root area that sits under navbar so navbar remains visible */
+.onboarding-root{
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 72px); /* adjust if your navbar height differs */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  pointer-events: none; /* card will re-enable pointer-events */
+  z-index: 3;
+}
+
+/* background video / image */
+.onb-bg {
+  position: fixed;
+  top: 0; /* starts at very top of screen */
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  filter: brightness(0.26) contrast(1.2);
+  pointer-events: none; /* so it doesn't block any clicks */
+}
+
+/* main centered glass card */
+.onb-card{
+  pointer-events: auto;
+  width: min(960px, 92%);
+  max-width: 900px;
+  padding: 34px 36px 38px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  backdrop-filter: blur(10px) saturate(1.2);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 18px 60px rgba(2,6,20,0.7);
+  position: relative;
+  text-align: center;
+  color: #fff;
+  overflow: visible;
+}
+
+/* neon glowing border effect (subtle) */
+.onb-card::after{
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 22px;
+  background: linear-gradient(90deg, rgba(0,245,255,0.06), rgba(255,51,204,0.06));
+  z-index: -1;
+  filter: blur(20px);
+  opacity: 0.9;
+}
+
+/* optional mascot floating above */
+.onb-mascot{
+  width: 96px;
+  margin: -70px auto 10px;
+  display:block;
+  filter: drop-shadow(0 10px 30px rgba(0,245,255,0.06));
+}
+
+/* titles */
+.onb-title{
+  font-family: 'Poppins', sans-serif;
+  margin: 6px 0 12px;
+  font-weight:700;
+  font-size: clamp(1.1rem, 2.2vw, 1.9rem);
+}
+.onb-sub{
+  margin-bottom: 18px;
+  opacity: 0.95;
+  font-weight:600;
+}
+
+/* neon text style */
+.neon{
+  text-shadow:
+    0 0 8px rgba(0,245,255,0.9),
+    0 0 18px rgba(255,51,204,0.6);
+}
+
+/* choices grid */
+.choices-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin: 18px 6px 6px;
+  align-items: stretch;
+}
+
+/* choice card */
+.choice-card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 12px;
+  min-height: 96px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 220ms ease, box-shadow 220ms ease, background 220ms ease;
+  user-select:none;
+}
+.choice-card:hover{
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px rgba(0,0,0,0.6);
+}
+.choice-card .choice-art{
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:8px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.03);
+}
+.choice-card .choice-art img{
+  max-width:100%;
+  max-height:100%;
+  object-fit:cover;
+  display:block;
+}
+.choice-label{
+  font-weight:700;
+  font-size:0.95rem;
+  text-align:center;
+}
+
+/* checkmark */
+.choice-check{
+  position:absolute;
+  top:8px;
+  right:8px;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  background: linear-gradient(90deg, var(--neon-a), var(--neon-b));
+  color:#041019;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:800;
+  transform: scale(0.8);
+  opacity:0;
+  transition: all 220ms ease;
+  box-shadow: 0 8px 26px rgba(0,245,255,0.12);
+}
+.choice-check.show{
+  transform: scale(1);
+  opacity:1;
+}
+
+/* selected style */
+.choice-card.selected{
+  background: linear-gradient(90deg, rgba(0,245,255,0.12), rgba(255,51,204,0.10));
+  border: none;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.65), 0 0 36px rgba(0,245,255,0.08);
+  transform: translateY(-10px) scale(1.02);
+}
+
+/* Continue button style */
+.onb-continue{
+  margin-top: 18px;
+  background: linear-gradient(#000);
+  border: none;
+  color: white;
+  padding: 12px 22px;
+  border-radius: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.2px;
+  transition: transform 140ms ease, box-shadow 140ms ease, opacity 140ms;
+  box-shadow: 0 12px 34px rgba(51,204,255,0.06);
+}
+.onb-continue.big { padding: 14px 28px; font-size:1.03rem; }
+.onb-continue:disabled{ opacity: 0.42; cursor: not-allowed; transform: none; }
+
+/* Top animated rainbow line */
+.onb-color-line-top {
+  height: 6px;
+  width: 0;
+  margin-bottom: 16px;
+  border-radius: 4px;
+  background: linear-gradient( #33ff77);
+  box-shadow: 0 0 14px rgba(255,255,255,0.4);
+}
+
+/* Colorful falling papers */
+.color-paper {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(135deg, #ff33cc, #33ccff, #ffdd33);
+  top: -50px;
+  border-radius: 4px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+
+/* responsive tweaks */
+@media (max-width:880px){
+  .onb-card { padding: 22px; width:94%; }
+  .onb-mascot{ width:72px; margin-top:-50px; }
+  .choice-card { min-height:82px; padding:10px; }
+}
+/* 🌌 Futuristic Circle Section */
+.vision-container {
+  position: relative;
+  text-align: center;
+  padding: 40px 0;
+}
+
+.circle-core {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  margin: 0 auto 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 245, 255, 0.3);
+  width: 100%;
+  height: 100%;
+  animation: spin 10s linear infinite;
+}
+
+.circle-ring.small {
+  width: 140px;
+  height: 140px;
+  border-color: rgba(255, 51, 204, 0.4);
+  animation-direction: reverse;
+  animation-duration: 8s;
+}
+
+.circle-glow {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,245,255,0.2), transparent 70%);
+  filter: blur(16px);
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.vision-title {
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-shadow: 0 0 10px var(--neon-a), 0 0 20px var(--neon-b);
+}
+
+.vision-nodes {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto 20px;
+}
+
+.vision-node {
+  position: absolute;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255,255,255,0.1);
+  font-weight: 600;
+  color: #fff;
+  font-size: 0.9rem;
+  box-shadow: 0 0 10px rgba(0,245,255,0.2);
+}
+
+.vision-node.top-left { top: -40px; left: 40px; }
+.vision-node.top-right { top: -40px; right: 40px; }
+.vision-node.bottom-left { bottom: -20px; left: 30px; }
+.vision-node.bottom-right { bottom: -20px; right: 30px; }
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes pulse {
+  0%,100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.05); }
+}
+
+
+/* Colorful flying papers animation */
+.color-paper {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: linear-gradient(135deg, #ff33cc, #33ccff, #ffdd33);
+  top: -50px;
+  left: calc(10% + 80% * var(--i));
+  border-radius: 4px;
+  z-index: 5;
+  pointer-events: none;
+}
+/* Animated colorful line under question/thought */
+.onb-color-line {
+  height: 5px;
+  width: 0;
+  margin: 16px auto 22px;
+  border-radius: 4px;
+  background: linear-gradient( #33ff77);
+  box-shadow: 0 0 12px rgba(255,255,255,0.3);
+}
+
+
+
+
+

@@ -1,0 +1,130 @@
+/* === Profile Page (Simple Clean Look) === */
+
+.profile-page {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa; /* light background */
+  color: #222;
+}
+
+/* Back Button */
+.profile-back-btn {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  z-index: 3;
+  padding: 10px 16px;
+  font-size: 1rem;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 6px;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.profile-back-btn:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.05);
+}
+
+/* Content Wrapper */
+.profile-content {
+  position: relative;
+  z-index: 2;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+}
+
+/* Profile Box */
+.profile-box {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 40px 30px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Title */
+.profile-box h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #000;
+}
+
+/* Profile Image */
+.profile-box img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+/* Input Fields */
+.profile-box input,
+.profile-box select,
+.profile-box textarea {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: 1.5px solid #ccc;
+  outline: none;
+  background-color: #fff;
+  color: #000;
+  transition: all 0.3s ease;
+}
+
+.profile-box input:focus,
+.profile-box select:focus,
+.profile-box textarea:focus {
+  border-color: #007bff;
+}
+
+/* Buttons */
+.profile-box button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.save-btn {
+  background: #007bff;
+  color: #fff;
+}
+
+.save-btn:hover {
+  background: #0056cc;
+}
+
+.edit-btn {
+  background: #6c757d;
+  color: #fff;
+}
+
+.edit-btn:hover {
+  background: #495057;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .profile-box {
+    padding: 25px 20px;
+  }
+  .profile-box h2 {
+    font-size: 1.6rem;
+  }
+}

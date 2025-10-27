@@ -1,0 +1,157 @@
+/* === Contact Page (Simple Clean Look) === */
+
+.contact-page {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+  color: #222;
+}
+
+/* Background Video */
+.contact-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  z-index: 0;
+  filter: brightness(0.5);
+}
+
+/* Overlay for readability */
+.contact-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+/* Back Button */
+.back-btn {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  z-index: 3;
+  padding: 10px 16px;
+  font-size: 1rem;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 6px;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.05);
+}
+
+/* Content Wrapper */
+.contact-content {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  width: 90%;
+  text-align: center;
+}
+
+/* Contact Box */
+.contact-box {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  padding: 40px 30px;
+  backdrop-filter: blur(10px);
+}
+
+/* Title */
+.contact-box h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+.contact-box p {
+  color: #444;
+  font-size: 1rem;
+  margin-bottom: 25px;
+}
+
+/* Input Fields */
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  font-size: 15px;
+  border-radius: 6px;
+  border: 1.5px solid #ccc;
+  outline: none;
+  background-color: #fff;
+  color: #000;
+  transition: all 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #007bff;
+}
+
+/* Button */
+.send-btn {
+  width: 100%;
+  padding: 14px;
+  background: #007bff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.send-btn:hover {
+  background: #0056cc;
+}
+
+/* Success Message */
+.success-message {
+  margin-top: 15px;
+  font-size: 1rem;
+  color: #0a9c3b;
+  font-weight: 500;
+  animation: fadeIn 0.4s ease;
+}
+
+/* Fade In */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .contact-box {
+    padding: 25px 20px;
+  }
+  .contact-box h1 {
+    font-size: 1.6rem;
+  }
+}
