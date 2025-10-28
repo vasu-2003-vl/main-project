@@ -15,7 +15,7 @@
 /* Back Button */
 .profile-back-btn {
   position: absolute;
-  top: 25px;
+  top: 5rem;
   left: 25px;
   z-index: 3;
   padding: 10px 16px;

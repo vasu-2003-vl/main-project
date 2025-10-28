@@ -38,7 +38,7 @@
 /* Back Button */
 .back-btn {
   position: absolute;
-  top: 25px;
+  top: 5rem;
   left: 25px;
   z-index: 3;
   padding: 10px 16px;
@@ -52,10 +52,11 @@
   transition: all 0.3s ease;
 }
 
-.back-btn:hover {
+.contact-back-btn:hover {
   background: rgba(255, 255, 255, 1);
   transform: scale(1.05);
 }
+
 
 /* Content Wrapper */
 .contact-content {

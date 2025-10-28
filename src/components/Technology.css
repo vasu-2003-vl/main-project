@@ -49,7 +49,7 @@
 /* Back button */
 .back-btn {
   position: absolute;
-  top: 2rem;
+  top: 5rem;
   left: 2rem;
   padding: 0.5rem 1rem;
   border: none;
@@ -58,6 +58,11 @@
   background: transparent;
   color: transparent;
 }
+.technology-back-btn:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.05);
+}
+
 .web-info {
   text-align: center;
   margin: 2rem auto;

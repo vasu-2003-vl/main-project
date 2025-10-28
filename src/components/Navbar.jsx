@@ -63,7 +63,7 @@ const Navbar = ({
       return;
     }
 
-    const userAvatar = !isLogin && formData.name ? formData.name[0].toUpperCase() : "U";
+    const userAvatar = !isLogin && formData.name ? formData.name[0].toUpperCase() : "V";
 
     const userData = {
       loggedIn: true,
