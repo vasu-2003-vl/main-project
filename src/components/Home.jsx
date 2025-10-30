@@ -117,91 +117,7 @@ const Home = ({
   return (
     <div className="home-wrapper">
 
-      {/* AI Message */}
-      {aiMessage && (
-        <div className="ai-message">
-          <span>{aiMessage}</span>
-        </div>
-      )}
-
-      {/* Signup/Login Overlay */}
-      {showSignup && (
-        <div className="auth-page">
-          <video autoPlay loop muted playsInline className="background-video">
-            <source src="/videos/signback.mp4" type="video/mp4" />
-          </video>
-          <div className="auth-container">
-            <div className="auth-left">
-              {isLogin ? (
-                <>
-                  <h1>Have an account?</h1>
-                  <p>Login to continue your journey with LearnSphere AI!</p>
-                </>
-              ) : (
-                <>
-                  <h1>Create your Account</h1>
-                  <p>Join our platform to start learning and exploring!</p>
-                </>
-              )}
-            </div>
-            <div className="auth-right">
-              <button className="close-btn" onClick={() => setShowSignup(false)}>
-                ✖
-              </button>
-              <h2>{isLogin ? "Login" : "Sign Up"}</h2>
-              <form onSubmit={handleSubmit}>
-                {!isLogin && (
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Full name"
-                    value={formData.name}
-                    onChange={handleChange}
-                  />
-                )}
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email address"
-                  value={formData.email}
-                  onChange={handleChange}
-                />
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  value={formData.password}
-                  onChange={handleChange}
-                />
-                {!isLogin && (
-                  <input
-                    type="password"
-                    name="confirmPassword"
-                    placeholder="Confirm password"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                  />
-                )}
-                <button type="submit" className="join-btn">
-                  {isLogin ? "Login →" : "Sign Up →"}
-                </button>
-              </form>
-              <p className="toggle-text">
-                {isLogin ? (
-                  <>
-                    No account? <span onClick={() => setIsLogin(false)}>Sign Up</span>
-                  </>
-                ) : (
-                  <>
-                    Already have an account?{" "}
-                    <span onClick={() => setIsLogin(true)}>Login</span>
-                  </>
-                )}
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
+   
 
       {/* Hero Section */}
       <section className="hero-section">
@@ -221,72 +137,98 @@ const Home = ({
               "Interactive problem solving that's effective and fun.\nGet smarter in just 15 minutes a day."
             }
           />
-          <button className="get-started" onClick={handleGetStarted}>
-            Get Started
-          </button>
+         <button
+  className="get-started"
+  onClick={() => {
+    const savedUser = JSON.parse(localStorage.getItem("learnsphereUser"));
+    if (savedUser?.loggedIn) goToOnboarding();
+    else window.openSignupPopup(); // this triggers Navbar signup
+  }}
+>
+  Get Started
+</button>
+
         </div>
       </section>
 
       {/* Explore Section */}
-      <section className="explore-section">
-        <div className="explore-inner">
-          <div className="explore-intro">
-            <h1 className="explore-title">
-              Journey through play. Discover. Learn. Evolve.
-            </h1>
-            <h3 className="explore-subline">
-              Learn new technologies step by step. Challenge yourself with
-              interactive content.
-            </h3>
-          </div>
+      {/* Explore Section */}
+<section className="explore-section">
+  <div className="explore-inner">
+    <div className="explore-intro">
+      <h1 className="explore-title">
+        Journey through play. Discover. Learn. Evolve.
+      </h1>
+      <h3 className="explore-subline">
+        Learn new technologies step by step. Challenge yourself with
+        interactive content.
+      </h3>
+    </div>
 
-          <div className="course-cards">
-            <div
-              className="course-card"
-              onClick={() =>
-                handleProtectedClick(() => goToTechnology("cyber"))
-              }
-            >
-              <video
-                src="/videos/cyber.mp4"
-                className="course-video"
-                autoPlay
-                loop
-                muted
-                playsInline
-              />
-              <div className="course-info">
-                <h3>Cyber Security</h3>
-                <p>
-                  Learn to protect networks, analyze vulnerabilities, and defend
-                  against threats.
-                </p>
-              </div>
-            </div>
-
-            <div
-              className="course-card"
-              onClick={() => handleProtectedClick(() => goToTechnology("web"))}
-            >
-              <video
-                src="/videos/web.mp4"
-                className="course-video"
-                autoPlay
-                loop
-                muted
-                playsInline
-              />
-              <div className="course-info">
-                <h3>Web Development</h3>
-                <p>
-                  Master HTML, CSS, and JavaScript to build responsive, modern web
-                  applications.
-                </p>
-              </div>
-            </div>
-          </div>
+    <div
+      className="course-cards"
+      onClick={() => {
+        const savedUser = JSON.parse(localStorage.getItem("learnsphereUser"));
+        if (savedUser?.loggedIn) goToTechnology();
+        else window.openSignupPopup(); // same as Get Started
+      }}
+      style={{ cursor: "pointer" }}
+    >
+      <div
+        className="course-card"
+        onClick={(e) => {
+          e.stopPropagation();
+          const savedUser = JSON.parse(localStorage.getItem("learnsphereUser"));
+          if (savedUser?.loggedIn) goToTechnology("cyber");
+          else window.openSignupPopup();
+        }}
+      >
+        <video
+          src="/videos/cyber.mp4"
+          className="course-video"
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+        <div className="course-info">
+          <h3>Cyber Security</h3>
+          <p>
+            Learn to protect networks, analyze vulnerabilities, and defend
+            against threats.
+          </p>
         </div>
-      </section>
+      </div>
+
+      <div
+        className="course-card"
+        onClick={(e) => {
+          e.stopPropagation();
+          const savedUser = JSON.parse(localStorage.getItem("learnsphereUser"));
+          if (savedUser?.loggedIn) goToTechnology("web");
+          else window.openSignupPopup();
+        }}
+      >
+        <video
+          src="/videos/web.mp4"
+          className="course-video"
+          autoPlay
+          loop
+          muted
+          playsInline
+        />
+        <div className="course-info">
+          <h3>Web Development</h3>
+          <p>
+            Master HTML, CSS, and JavaScript to build responsive, modern web
+            applications.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
       {/* Video Slider */}
       <div className="video-section">

@@ -63,16 +63,18 @@ function App() {
 
   return (
     <div className="app-container" style={{ width: "100vw", height: "100vh" }}>
-      {/* Navbar visible on all pages */}
-      <Navbar
-        goToProfile={goToProfile}
-        goToTechnology={goToTechnology}
-        goToAbout={goToAbout}
-        goToContact={goToContact}
-        goBackHome={goToHome}
-      />
+      {/* Navbar hidden on Profile & Onboarding */}
+      {currentPage !== "profile" && currentPage !== "onboarding" && (
+        <Navbar
+          goToProfile={goToProfile}
+          goToTechnology={goToTechnology}
+          goToAbout={goToAbout}
+          goToContact={goToContact}
+          goBackHome={goToHome}
+        />
+      )}
 
-      {/* Page Content */}
+      {/* Page Routing */}
       {currentPage === "home" && <Home {...sharedProps} />}
       {currentPage === "onboarding" && (
         <Onboarding goToTechnology={goToTechnology} goBackHome={goToHome} />
@@ -90,8 +92,8 @@ function App() {
         />
       )}
 
-      {/* Footer visible on all pages except profile */}
-      {currentPage !== "profile" && (
+      {/* Footer hidden on Profile & Onboarding */}
+      {currentPage !== "profile" && currentPage !== "onboarding" && (
         <Footer
           goToTechnology={goToTechnology}
           goToAbout={goToAbout}

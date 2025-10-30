@@ -36,26 +36,23 @@
 }
 
 /* Back Button */
+/* Back button */
 .back-btn {
   position: absolute;
-  top: 5rem;
-  left: 25px;
-  z-index: 3;
-  padding: 10px 16px;
-  font-size: 1rem;
-  font-weight: 500;
-  background: rgba(255, 255, 255, 0.8);
+  top: 4rem;
+  left: 3rem;
+  padding: 0.5rem 1rem;
   border: none;
-  border-radius: 6px;
-  color: #000;
+  border-radius: 8px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  background: white;
+  color: rgb(248, 247, 247);
 }
-
 .contact-back-btn:hover {
   background: rgba(255, 255, 255, 1);
   transform: scale(1.05);
 }
+
 
 
 /* Content Wrapper */
@@ -83,7 +80,7 @@
 }
 
 .contact-box p {
-  color: #444;
+  color: #f7f3f3;
   font-size: 1rem;
   margin-bottom: 25px;
 }
@@ -99,7 +96,7 @@
   border: 1.5px solid #ccc;
   outline: none;
   background-color: #fff;
-  color: #000;
+  color: #f7f4f4;
   transition: all 0.3s ease;
 }
 

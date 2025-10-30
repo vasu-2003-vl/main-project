@@ -49,17 +49,17 @@
 /* Back button */
 .back-btn {
   position: absolute;
-  top: 5rem;
-  left: 2rem;
+  top: 4rem;
+  left: 3rem;
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   background: transparent;
-  color: transparent;
+  color: rgb(250, 247, 247);
 }
 .technology-back-btn:hover {
-  background: rgba(255, 255, 255, 1);
+  background: rgb(12, 12, 12);
   transform: scale(1.05);
 }
 

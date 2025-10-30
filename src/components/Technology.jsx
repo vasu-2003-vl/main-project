@@ -38,7 +38,7 @@ export default function Technology({ goBack }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <h1 className="title">🚀 Explore Technology Realms</h1>
+        <h1 className="title">Explore Technology Realms</h1>
         <p className="subtitle">
           Choose your adventure — dive into powerful skills that shape the future!
         </p>
@@ -51,7 +51,7 @@ export default function Technology({ goBack }) {
           whileHover={{ scale: 1.05,  }}
           transition={{ duration: 0.3 }}
         >
-          <h2>🌐 Web Development</h2>
+          <h2>Web Development</h2>
           <p>
             Master the art of creating modern, responsive, and interactive web experiences.
           </p>
@@ -70,7 +70,7 @@ export default function Technology({ goBack }) {
           whileHover={{ scale: 1.05,  }}
           transition={{ duration: 0.3 }}
         >
-          <h2>🛡️ Cyber Security</h2>
+          <h2>Cyber Security</h2>
           <p>
             Step into the digital battlefield — defend networks, data, and systems like a pro.
           </p>

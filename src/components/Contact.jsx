@@ -55,7 +55,7 @@ export default function Contact({ goBack }) {
 
       {/* Back Button */}
       <button className="back-btn" onClick={goBack}>
-        ⬅ Back to Home
+        ⬅ Back 
       </button>
 
       {/* Contact Content */}

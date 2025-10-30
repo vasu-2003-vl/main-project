@@ -117,7 +117,7 @@ export default function WebDevelopment({ goBack }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h2>🌐 Web Development & Backend Skills</h2>
+            <h2>Web Development & Backend Skills</h2>
             <p>
               Explore the world of Web Development: create stunning user interfaces with
               Frontend technologies like React, HTML, CSS, and JS.  
@@ -133,7 +133,7 @@ export default function WebDevelopment({ goBack }) {
               className="tech-card frontend"
               whileHover={{ scale: 1.05,  }}
             >
-              <h3>💻 Frontend Project</h3>
+              <h3>Frontend Project</h3>
               <p>React, HTML, CSS, JS — create stunning user interfaces!</p>
               <motion.button
                 className="explore-btn"
@@ -148,7 +148,7 @@ export default function WebDevelopment({ goBack }) {
               className="tech-card backend"
               whileHover={{ scale: 1.05,  }}
             >
-              <h3>🛡️ Backend Project</h3>
+              <h3>Backend Project</h3>
               <p>Node.js, Express, Databases — build powerful server-side applications!</p>
               <motion.button
                 className="explore-btn"

@@ -1,81 +1,108 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Confetti from "react-confetti";
-import "./Onboarding.css";
+// Removed: import Confetti from "react-confetti"; // External dependency issue
+// import "./Onboarding.css"; // Assuming this is handled by the environment or included below
 
 export default function Onboarding({ goToTechnology }) {
   const [step, setStep] = useState(0);
   const [selected, setSelected] = useState(null);
   const [showConfetti, setShowConfetti] = useState(false);
-  const [showLines, setShowLines] = useState(false);
+  const [showLines, setShowLines] = useState(false); // Kept state, but the visual effect is commented out below
 
+  // --- UPDATED onboardingData: Images removed per user request ---
   const onboardingData = [
-    { type: "welcome", title: "Welcome to LearnSphere AI!", subtitle: "Choose what excites you." },
+    // Step 0: Welcome
+    { type: "welcome", title: "Hello! I am your guide.", subtitle: "Let's get to know each other" },
+
+    // Step 1: Interest (Image removed)
     {
       type: "question",
-      question: "Which technology excites you most?",
+      question: "Which are you more interested in?",
       options: [
-        { id: "web", label: "Web Development", img: "/images/place-web.jpeg" },
-        { id: "sec", label: "Cybersecurity", img: "/images/place-sec.jpeg" },
+        { id: "sec", label: "Cybersecurity" },
+        { id: "web", label: "Web Development" },
       ],
     },
+
+    // Step 2: Motivation (Image removed)
     {
       type: "question",
-      question: "Which learning style suits you best?",
+      question: "Why are you learning skills for?",
       options: [
-        { id: "visual", label: "Visual", img: "/images/place-visual.jpeg" },
-        { id: "aud", label: "Auditory", img: "/images/place-aud.jpeg" },
-        { id: "read", label: "Reading/Writing", img: "/images/place-read.jpeg" },
-        { id: "hands", label: "Hands-on", img: "/images/place-hands.jpeg" },
+        { id: "fun", label: "For fun" },
+        { id: "skill_enh", label: "Skill enhancement" },
+        { id: "resume", label: "Resume boost" },
       ],
     },
-    { type: "thought", title: "💡 Every step you take is progress!" },
+
+    // Step 3: Commitment Thought
+    { type: "thought", title: "People who stay committed have a high chance of reaching their goals. " },
+
+    // Step 4: Time Commitment (Image removed)
     {
       type: "question",
-      question: "What is your current skill level?",
+      question: "How much of your time are you gonna commit for your skill?",
       options: [
-        { id: "Beginner", label: "Beginner", img: "/images/place-beginner.jpeg" },
-        { id: "inter", label: "Intermediate", img: "/images/place-inter.jpeg" },
-        { id: "adv", label: "Advanced", img: "/images/place-adv.jpeg" },
+        { id: "10", label: "10 mins" },
+        { id: "15", label: "15 mins" },
+        { id: "25", label: "25 mins" },
+        { id: "30", label: "30 mins" },
       ],
     },
+
+    // Step 5: Daily Reminder (Image removed)
     {
       type: "question",
-      question: "How much time can you dedicate per day?",
+      question: "Do you want LearnSphere to send you daily reminders?",
       options: [
-        { id: "15", label: "15 mins", img: "/images/15.jpeg" },
-        { id: "30", label: "30 mins", img: "/images/30.jpeg" },
-        { id: "45", label: "45 mins", img: "/images/45.jpeg" },
-        { id: "hr", label: "1 hr", img: "/images/1.jpeg" },
+        { id: "allow", label: "Allow" },
+        { id: "skip", label: "Skip" },
       ],
     },
-    { type: "thought", title: "Small progress each day adds up to big results." },
-    { type: "final", title: "You're ready — let's learn! 🎉" },
+
+    // Step 6: Motivation Thought
+    { type: "thought", title: "I know its hard to be motivated, but LearnSphere keeps you engaging through fun games, themes... so dive in! " },
+
+    // Step 7: Personal Playground (Image removed)
+    {
+      type: "question",
+      question: "Before diving in, choose your personal playground",
+      options: [
+        { id: "anime", label: "Anime" },
+        { id: "scientific", label: "Scientific" },
+      ],
+    },
+
+    // Step 8: Final Step
+    { type: "final", title: "You're ready — let's learn! " },
   ];
+  // -------------------------------------------------------------------
 
   const current = onboardingData[step];
 
   const selectOption = (optId) => setSelected(optId === selected ? null : optId);
 
-  
   const next = () => {
-  if (current.type === "question" && !selected) return;
-  setSelected(null);
-  if (step < onboardingData.length - 1) {
-    setStep((s) => s + 1);
-  } else {
-    setShowConfetti(true);
-    setShowLines(true);
-    setTimeout(() => setShowConfetti(false), 2500);
-    
-    // Navigate to Technology page
-    if (typeof goToTechnology === "function") {
-      // pass the selected tech from step 1 (technology question)
-      const techOption = onboardingData[1].options.find(opt => opt.id === selected) || onboardingData[1].options[0];
-      goToTechnology(techOption.id);
+    if (current.type === "question" && !selected) return;
+    setSelected(null);
+    if (step < onboardingData.length - 1) {
+      setStep((s) => s + 1);
+    } else {
+      // Simulate a final celebration effect
+      setShowConfetti(true); 
+      // setShowLines(true); // Keeping this state for potential future use or alternative visual
+      setTimeout(() => setShowConfetti(false), 2500);
+
+      // Navigate to Technology page
+      if (typeof goToTechnology === "function") {
+        // Find the selected tech from step 1 (technology question)
+        const techOption = onboardingData[1].options.find(opt => opt.id === selected) || onboardingData[1].options[0];
+        // We use the first option as a fallback if nothing was selected on step 1, 
+        // which shouldn't happen due to the disabled button logic, but is safe.
+        goToTechnology(techOption.id); 
+      }
     }
-  }
-};
+  };
 
 
   const cardVariants = {
@@ -91,13 +118,13 @@ export default function Onboarding({ goToTechnology }) {
 
   return (
     <div className="onboarding-root">
-      {/* Video background */}
+      {/* Video background - assuming '/videos/onback.mp4' is available */}
       <video autoPlay loop muted className="onb-bg">
         <source src="/videos/onback.mp4" type="video/mp4" />
       </video>
 
-      {/* Confetti */}
-      {showConfetti && <Confetti recycle={false} numberOfPieces={140} />}
+      {/* Confetti (Replaced with a simple celebratory overlay/visual state if needed later) */}
+      {/* {showConfetti && <Confetti recycle={false} numberOfPieces={140} />} */}
 
       <AnimatePresence mode="wait">
         <motion.div
@@ -112,8 +139,9 @@ export default function Onboarding({ goToTechnology }) {
           {/* Welcome Step */}
           {current.type === "welcome" && (
             <>
+              {/* Assuming '/images/logo.jpeg' is available */}
               <img src="/images/logo.jpeg" alt="LearnSphere Logo" className="onb-logo" width="100"
-  height="100" />
+    height="100" />
               <h1 className="onb-title neon">{current.title}</h1>
               <p className="onb-sub">{current.subtitle}</p>
               <motion.button
@@ -147,20 +175,18 @@ export default function Onboarding({ goToTechnology }) {
                     return (
                       <motion.div
                         key={opt.id}
-                        className={`choice-card ${isSel ? "selected" : ""}`}
+                        // Added 'choice-label-only' class for specific styling changes
+                        className={`choice-card choice-label-only ${isSel ? "selected" : ""}`}
                         onClick={() => selectOption(opt.id)}
                         whileHover={{ y: -6 }}
                         whileTap={{ scale: 0.98 }}
                       >
-                        <div className="choice-art">
-                          <img
-                            src={opt.img}
-                            alt={opt.label}
-                            onError={(e) => { e.currentTarget.src = "/images/placeholder.png"; }}
-                          />
-                        </div>
+                        {/* Images removed as requested. The card now contains only the label
+                          and the selection indicator. 
+                        */}
                         <div className="choice-label">{opt.label}</div>
-                        <div className={`choice-check ${isSel ? "show" : ""}`}>✓</div>
+                        {/* MODIFIED: Changed selection indicator to a small, filled circle (dot) */}
+                        <div className={`choice-dot ${isSel ? "show" : ""}`} />
                       </motion.div>
                     );
                   })}
@@ -186,6 +212,7 @@ export default function Onboarding({ goToTechnology }) {
                 className="onb-continue big"
                 onClick={next}
                 whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
               >
                 Continue →
               </motion.button>
@@ -194,8 +221,8 @@ export default function Onboarding({ goToTechnology }) {
         </motion.div>
       </AnimatePresence>
 
-      {/* Colorful paper fall */}
-      {showLines &&
+      {/* Colorful paper fall (kept for visual effect, but currently commented out to avoid confusion without Confetti) */}
+      {/* {showLines &&
         Array.from({ length: 30 }).map((_, i) => (
           <motion.div
             key={i}
@@ -216,7 +243,7 @@ export default function Onboarding({ goToTechnology }) {
               delay: Math.random() * 2,
             }}
           />
-        ))}
+        ))} */}
     </div>
   );
 }

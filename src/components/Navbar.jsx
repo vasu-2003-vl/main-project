@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Home.css"; // reuse same styles
+import "./Home.css";
 
 const Navbar = ({
   goToProfile,
@@ -21,7 +21,7 @@ const Navbar = ({
   });
   const [aiMessage, setAiMessage] = useState("");
 
-  // Load saved login state
+  // ---------- Load login status ----------
   useEffect(() => {
     const savedUser = JSON.parse(localStorage.getItem("learnsphereUser"));
     if (savedUser?.loggedIn) {
@@ -30,21 +30,17 @@ const Navbar = ({
     }
   }, []);
 
+  // ---------- Logout ----------
   const handleLogout = () => {
     localStorage.removeItem("learnsphereUser");
     setLoggedIn(false);
     setAvatarLetter("");
-    window.location.reload();
+    setDropdownVisible(null);
+    setAiMessage("🤖 You’ve been logged out!");
+    setTimeout(() => setAiMessage(""), 3000);
   };
 
-  const handleProtectedClick = (callback) => {
-    if (!loggedIn) {
-      alert("🤖 Please sign up or log in first!");
-      return;
-    }
-    callback();
-  };
-
+  // ---------- Auth Handlers ----------
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -63,8 +59,7 @@ const Navbar = ({
       return;
     }
 
-    const userAvatar = !isLogin && formData.name ? formData.name[0].toUpperCase() : "V";
-
+    const userAvatar = (formData.name || formData.email)[0].toUpperCase();
     const userData = {
       loggedIn: true,
       avatarLetter: userAvatar,
@@ -76,7 +71,24 @@ const Navbar = ({
     setAvatarLetter(userAvatar);
     setShowSignup(false);
     setAiMessage(`Welcome, ${formData.name || formData.email}! 🤖`);
+    setTimeout(() => setAiMessage(""), 3000);
   };
+
+  // ---------- Helper to protect routes ----------
+  const handleProtectedClick = (callback) => {
+    if (!loggedIn) {
+      setAiMessage("🤖 Please sign up or log in first!");
+      setShowSignup(true);
+      setTimeout(() => setAiMessage(""), 3000);
+      return;
+    }
+    callback();
+  };
+
+  // ---------- Allow Home.jsx to open signup ----------
+  useEffect(() => {
+    window.openSignupPopup = () => setShowSignup(true);
+  }, []);
 
   return (
     <nav className="navbar transparent">
@@ -86,8 +98,9 @@ const Navbar = ({
         <h2>LearnSphere AI</h2>
       </div>
 
-      {/* Center Dropdowns */}
+      {/* Center */}
       <div className="nav-center">
+        {/* Explore */}
         <div className="nav-item" onMouseLeave={() => setDropdownVisible(null)}>
           <button
             className="nav-btn"
@@ -103,16 +116,27 @@ const Navbar = ({
           </button>
           {dropdownVisible === "explore" && loggedIn && (
             <div className="dropdown">
-              <a href="#" onClick={() => goToTechnology("web")}>
+              <a
+                href="#"
+                onClick={() =>
+                  handleProtectedClick(() => goToTechnology("web"))
+                }
+              >
                 Web Development
               </a>
-              <a href="#" onClick={() => goToTechnology("cyber")}>
+              <a
+                href="#"
+                onClick={() =>
+                  handleProtectedClick(() => goToTechnology("cyber"))
+                }
+              >
                 Cyber Security
               </a>
             </div>
           )}
         </div>
 
+        {/* Discover */}
         <div className="nav-item" onMouseLeave={() => setDropdownVisible(null)}>
           <button
             className="nav-btn"
@@ -145,7 +169,7 @@ const Navbar = ({
         </div>
       </div>
 
-      {/* Right Side */}
+      {/* Right */}
       <div className="nav-right">
         {!loggedIn ? (
           <a href="#" className="signup-text" onClick={() => setShowSignup(true)}>
