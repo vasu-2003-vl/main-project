@@ -40,14 +40,14 @@ body::-webkit-scrollbar {
   justify-content: space-between;
   align-items: center;
   padding: 0 2%;
-  background: rgba(0, 0, 0, 0.7); /* semi-transparent black */
+  background: transparent; /* semi-transparent black */
   backdrop-filter: blur(6px);
   z-index: 1000; /* stay above all content */
   transition: background 0.3s ease;
 }
 
 .navbar:hover {
-  background: rgba(0, 0, 0, 0.9);
+  background: black;
 }
 
 /* Navbar Sections */
@@ -83,7 +83,7 @@ body::-webkit-scrollbar {
 
 .dropdown {
   position: absolute;
-  top: 35px;
+  top: 55px;
   background: rgba(0,0,0,0.85);
   border-radius: 8px;
   display: flex;
@@ -91,7 +91,7 @@ body::-webkit-scrollbar {
   padding: 10px;
 }
 
-.dropdown a { color: white; text-decoration: none; padding: 5px 0; }
+.dropdown a { color: white; text-decoration: none; padding: 6px 0; }
 .dropdown a:hover { color: #00bfff; }
 
 .nav-right { display: flex; align-items: center; }
@@ -108,7 +108,7 @@ body::-webkit-scrollbar {
 }
 
 .profile-dropdown {
-  position: absolute; top: 20px; right: 20px ; 
+  position: absolute; top: 30px; right: 20px ; 
   background: transparent;
   padding: 10px; 
   display: flex; flex-direction: column;

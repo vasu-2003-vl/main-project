@@ -1,9 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap");
 
 :root {
-  --neon-a: #00f5ff;
-  --neon-b: #ff33cc;
-  --glass-bg: rgba(255, 255, 255, 0.04);
+  /* Removed Neon colors, focusing on black and white/grayscale */
+  --color-dark: #000;
+  --color-light: #fff;
+  --color-gray: #ccc;
+  --glass-bg: rgba(255, 255, 255, 0.04); /* Light glass tint */
 }
 
 .about-page {
@@ -11,7 +13,8 @@
   width: 100%;
   min-height: 100vh;
   padding: 2rem;
-  color: white;
+  /* Set overall text color to white */
+  color: var(--color-light); 
   overflow-x: hidden;
   overflow-y: auto;
   box-sizing: border-box;
@@ -29,85 +32,71 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: -2;
-  filter: brightness(0.35) contrast(1.2);
+  /* MODIFIED: Setting a very low z-index to ensure it is behind everything */
+  z-index: -10; 
+  /* MODIFIED: Increased brightness from 0.18 to 0.3 to make it more visible */
+  filter: brightness(0.3) contrast(1.4); 
 }
 
-/* Back button */
-.back-btn {
-  position: fixed;
-  top: 5rem;
-  left: 3rem;
-  padding: 0.6rem 1.2rem;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 10px;
-  cursor: pointer;
-  background: rgba(0, 0, 0, 0.4);
-  color: #fff;
-  font-weight: 600;
-  backdrop-filter: blur(8px);
-  transition: all 0.25s ease;
-  z-index: 5;
-}
-
-.back-btn:hover {
-  background: linear-gradient(90deg, var(--neon-a), var(--neon-b));
-  color: #000;
-  transform: scale(1.05);
-  box-shadow: 0 0 18px rgba(0, 245, 255, 0.6);
-}
-
-/* Content */
+/* Content Card */
 .about-content {
   max-width: 850px;
   text-align: center;
-  background: var(--glass-bg);
-  backdrop-filter: blur(14px) saturate(1.3);
-  padding: 3rem 2rem;
+  /* Glass effect for B&W: mostly transparent white */
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(16px) saturate(1.5);
+  padding: 3.5rem 2.5rem;
   border-radius: 20px;
   margin-top: 8rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+  /* White border */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.9); /* Sharper dark shadow */
 }
 
-.about-content h1 {
-  margin-bottom: 1.2rem;
-  font-size: clamp(2rem, 4vw, 2.8rem);
-  font-weight: 700;
-  background: linear-gradient(90deg, var(--neon-a), var(--neon-b));
- 
-  -webkit-text-fill-color: transparent;
+/* Main Title Style */
+.about-content .main-title {
+  margin-bottom: 2rem;
+  font-size: clamp(2.2rem, 4.5vw, 3rem);
+  font-weight: 800;
+  color: var(--color-light); /* Set to solid white */
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
+/* Intro Paragraph */
+.about-content .intro-text {
+    font-size: clamp(1.1rem, 1.5vw, 1.3rem);
+    font-weight: 600;
+    margin-bottom: 2.5rem;
+    line-height: 1.6;
+    color: var(--color-gray);
+}
+
+/* Section Headings (Gamified) */
+.about-content .quest-section {
+    padding: 1.5rem 0;
+    margin-bottom: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.about-content .section-title {
+    font-size: clamp(1.4rem, 2vw, 1.8rem);
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    color: var(--color-light);
+}
+
+/* Body Paragraphs */
 .about-content p {
-  margin-bottom: 1rem;
   line-height: 1.7;
-  font-size: 1.15rem;
-  opacity: 0.95;
-}
-
-/* Neon title glow */
-.neon-title {
-  text-shadow:
-    0 0 8px rgba(0, 245, 255, 0.7),
-    0 0 16px rgba(255, 51, 204, 0.5);
+  font-size: clamp(1rem, 1.2vw, 1.15rem);
+  opacity: 0.85;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .back-btn {
-    top: 3rem;
-    left: 1.5rem;
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-  }
-
   .about-content {
     padding: 2rem 1.5rem;
     margin-top: 6rem;
-  }
-
-  .about-content p {
-    font-size: 1rem;
   }
 }

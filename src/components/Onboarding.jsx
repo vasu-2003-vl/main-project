@@ -1,20 +1,25 @@
+// In Onboarding.jsx
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-// Removed: import Confetti from "react-confetti"; // External dependency issue
-// import "./Onboarding.css"; // Assuming this is handled by the environment or included below
+import "./Onboarding.css"; // <--- ADD THIS LINE (OR UNCOMMENT IT)
+
+// ... rest of your component
 
 export default function Onboarding({ goToTechnology }) {
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(1); // STARTING AT STEP 1 (Interest Question)
   const [selected, setSelected] = useState(null);
   const [showConfetti, setShowConfetti] = useState(false);
-  const [showLines, setShowLines] = useState(false); // Kept state, but the visual effect is commented out below
+  const [showLines, setShowLines] = useState(false); 
+  
+  // Adjusted STARTING step to 1 to match the screenshot state.
+  // You might want to keep it at 0 if you want the 'Welcome' step to show first.
 
   // --- UPDATED onboardingData: Images removed per user request ---
   const onboardingData = [
-    // Step 0: Welcome
+    // Step 0: Welcome (If step is 0)
     { type: "welcome", title: "Hello! I am your guide.", subtitle: "Let's get to know each other" },
 
-    // Step 1: Interest (Image removed)
+    // Step 1: Interest (Image removed) - CORRESPONDS TO SCREENSHOT
     {
       type: "question",
       question: "Which are you more interested in?",
@@ -79,27 +84,36 @@ export default function Onboarding({ goToTechnology }) {
   // -------------------------------------------------------------------
 
   const current = onboardingData[step];
+  
+  // Adjusted index 1 for technology selection to handle the case where
+  // the initial step is 0 (Welcome) or 1 (Interest).
+  const technologyStepIndex = onboardingData.findIndex(d => d.type === "question" && d.question === "Which are you more interested in?");
 
   const selectOption = (optId) => setSelected(optId === selected ? null : optId);
 
   const next = () => {
+    // Check if a selection is required for 'question' type steps
     if (current.type === "question" && !selected) return;
-    setSelected(null);
+
+    // Handle navigation logic
     if (step < onboardingData.length - 1) {
+      // If we're moving from the technology question (step 1 in the array, index 1)
+      if (step === technologyStepIndex) {
+        // Save the selected technology before moving on
+        localStorage.setItem("selectedTechnology", selected);
+      }
       setStep((s) => s + 1);
+      setSelected(null); // Clear selection for the next step
     } else {
-      // Simulate a final celebration effect
+      // Final Step Logic
       setShowConfetti(true); 
-      // setShowLines(true); // Keeping this state for potential future use or alternative visual
       setTimeout(() => setShowConfetti(false), 2500);
 
-      // Navigate to Technology page
+      // Navigate to Technology page using the stored selection from step 1
       if (typeof goToTechnology === "function") {
-        // Find the selected tech from step 1 (technology question)
-        const techOption = onboardingData[1].options.find(opt => opt.id === selected) || onboardingData[1].options[0];
-        // We use the first option as a fallback if nothing was selected on step 1, 
-        // which shouldn't happen due to the disabled button logic, but is safe.
-        goToTechnology(techOption.id); 
+        const selectedTechId = localStorage.getItem("selectedTechnology") || "sec"; // Default to 'sec'
+        localStorage.removeItem("selectedTechnology"); // Clean up storage
+        goToTechnology(selectedTechId); 
       }
     }
   };
@@ -123,7 +137,7 @@ export default function Onboarding({ goToTechnology }) {
         <source src="/videos/onback.mp4" type="video/mp4" />
       </video>
 
-      {/* Confetti (Replaced with a simple celebratory overlay/visual state if needed later) */}
+      {/* Confetti (Removed for simplicity, state kept for potential future re-implementation) */}
       {/* {showConfetti && <Confetti recycle={false} numberOfPieces={140} />} */}
 
       <AnimatePresence mode="wait">
@@ -140,8 +154,7 @@ export default function Onboarding({ goToTechnology }) {
           {current.type === "welcome" && (
             <>
               {/* Assuming '/images/logo.jpeg' is available */}
-              <img src="/images/logo.jpeg" alt="LearnSphere Logo" className="onb-logo" width="100"
-    height="100" />
+              <img src="/images/logo.jpeg" alt="LearnSphere Logo" className="onb-logo" width="100" height="100" />
               <h1 className="onb-title neon">{current.title}</h1>
               <p className="onb-sub">{current.subtitle}</p>
               <motion.button
@@ -181,21 +194,20 @@ export default function Onboarding({ goToTechnology }) {
                         whileHover={{ y: -6 }}
                         whileTap={{ scale: 0.98 }}
                       >
-                        {/* Images removed as requested. The card now contains only the label
-                          and the selection indicator. 
-                        */}
+                        {/* The card now contains only the label and the selection indicator */}
                         <div className="choice-label">{opt.label}</div>
-                        {/* MODIFIED: Changed selection indicator to a small, filled circle (dot) */}
+                        {/* MODIFIED: Selection indicator is a small, filled circle (dot) */}
                         <div className={`choice-dot ${isSel ? "show" : ""}`} />
                       </motion.div>
                     );
                   })}
                 </div>
               )}
-
+              
               <motion.button
                 className="onb-continue"
                 onClick={next}
+                // Button is disabled if it's a question step and no option is selected
                 disabled={current.type === "question" && !selected}
                 whileHover={{ scale: selected || current.type === "thought" ? 1.03 : 1 }}
               >
@@ -221,29 +233,8 @@ export default function Onboarding({ goToTechnology }) {
         </motion.div>
       </AnimatePresence>
 
-      {/* Colorful paper fall (kept for visual effect, but currently commented out to avoid confusion without Confetti) */}
-      {/* {showLines &&
-        Array.from({ length: 30 }).map((_, i) => (
-          <motion.div
-            key={i}
-            className="color-paper"
-            style={{
-              left: `${Math.random() * 100}%`,
-              width: 8 + Math.random() * 16,
-              height: 8 + Math.random() * 16,
-              rotate: Math.random() * 360,
-            }}
-            initial={{ y: -50 }}
-            animate={{ y: 900, rotate: Math.random() * 720 }}
-            transition={{
-              duration: 3 + Math.random() * 2,
-              repeat: Infinity,
-              repeatType: "loop",
-              ease: "linear",
-              delay: Math.random() * 2,
-            }}
-          />
-        ))} */}
+      {/* Colorful paper fall (Commented out) */}
+      {/* ... (Motion divs for confetti effect) */}
     </div>
   );
 }

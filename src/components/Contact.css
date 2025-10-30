@@ -1,155 +1,162 @@
-/* === Contact Page (Simple Clean Look) === */
+/* === Contact Page (Gamified B&W Terminal Look) === */
+/* Using Roboto Mono for a classic console feel */
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap");
 
 .contact-page {
   position: relative;
-  height: 100vh;
+  /* Changed height to min-height to allow scrolling if content is long */
+  min-height: 100vh;
   width: 100%;
   overflow: hidden;
   display: flex;
-  align-items: center;
+  /* MODIFIED: Align content from the top instead of centering vertically */
+  align-items: flex-start;
   justify-content: center;
-  font-family: "Poppins", sans-serif;
-  color: #222;
+  font-family: "Roboto Mono", monospace;
+  color: #fff; /* Default text color is white */
+  /* Added padding-top to ensure content starts below the Navbar */
+  padding-top: 100px; 
+  padding-bottom: 50px; /* Added bottom padding for spacing */
+  box-sizing: border-box; /* Ensure padding is included in height calculation */
 }
 
 /* Background Video */
 .contact-background {
-  position: absolute;
+  position: fixed; /* Changed to fixed so it doesn't scroll */
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
   object-fit: cover;
   z-index: 0;
-  filter: brightness(0.5);
+  /* B&W filter: high contrast, low brightness for a dark, stylized look */
+  filter: grayscale(1) brightness(0.25) contrast(1.5);
 }
 
 /* Overlay for readability */
 .contact-overlay {
-  position: absolute;
+  position: fixed; /* Changed to fixed */
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  /* Dark semi-transparent overlay */
+  background: rgba(0, 0, 0, 0.7);
   z-index: 1;
 }
-
-/* Back Button */
-/* Back button */
-.back-btn {
-  position: absolute;
-  top: 4rem;
-  left: 3rem;
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  background: white;
-  color: rgb(248, 247, 247);
-}
-.contact-back-btn:hover {
-  background: rgba(255, 255, 255, 1);
-  transform: scale(1.05);
-}
-
-
 
 /* Content Wrapper */
 .contact-content {
   position: relative;
   z-index: 2;
-  max-width: 600px;
+  max-width: 700px;
   width: 90%;
   text-align: center;
+  /* Removed margin-top since padding is applied to .contact-page */
 }
 
-/* Contact Box */
+/* Contact Box - Terminal/Console Window Style */
 .contact-box {
-  background: rgba(255, 255, 255, 0.9);
-  border-radius: 12px;
-  padding: 40px 30px;
-  backdrop-filter: blur(10px);
+  /* Dark, low-opacity background for a console feel */
+  background: rgba(10, 10, 10, 0.9);
+  border-radius: 4px; /* Sharp corners */
+  padding: 45px 40px;
+  backdrop-filter: blur(4px);
+  /* White border (simulating screen edge) */
+  border: 2px solid #fff; 
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.1); /* Subtle white glow effect */
 }
 
 /* Title */
-.contact-box h1 {
-  font-size: 2rem;
+.contact-title {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
   margin-bottom: 10px;
-  color: #000;
+  color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
-.contact-box p {
-  color: #f7f3f3;
-  font-size: 1rem;
-  margin-bottom: 25px;
+.contact-subtitle {
+  color: #aaa; /* Slightly subdued white */
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  margin-bottom: 30px;
+  line-height: 1.5;
 }
 
-/* Input Fields */
+/* Input Fields - Console Style */
 .contact-form input,
 .contact-form textarea {
   width: 100%;
   padding: 12px 15px;
-  margin-bottom: 15px;
+  margin-bottom: 18px;
   font-size: 15px;
-  border-radius: 6px;
-  border: 1.5px solid #ccc;
+  border-radius: 2px; /* Sharp corners */
+  border: 1px solid #444; /* Dark border */
   outline: none;
-  background-color: #fff;
-  color: #f7f4f4;
-  transition: all 0.3s ease;
+  background-color: #000; /* Black background */
+  color: #fff; /* White text */
+  font-family: "Roboto Mono", monospace;
+  transition: border-color 0.3s ease;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+    color: #888; /* Gray placeholder text */
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
-  border-color: #007bff;
+  border-color: #fff; /* White focus border */
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
 }
 
-/* Button */
+/* Button - B&W Command Button */
 .send-btn {
   width: 100%;
   padding: 14px;
-  background: #007bff;
+  background: #fff; /* White button background */
   border: none;
-  border-radius: 6px;
+  border-radius: 4px;
   font-size: 1rem;
-  font-weight: 600;
-  color: #fff;
+  font-weight: 700;
+  color: #000; /* Black text */
   cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
   transition: 0.3s ease;
+  margin-top: 10px;
 }
 
 .send-btn:hover {
-  background: #0056cc;
+  background: #ccc;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
 }
 
-/* Success Message */
+/* Success Message - Green Console Text (only splash of color) */
 .success-message {
-  margin-top: 15px;
+  margin-top: 20px;
   font-size: 1rem;
-  color: #0a9c3b;
-  font-weight: 500;
-  animation: fadeIn 0.4s ease;
+  /* Green for success feedback */
+  color: #00ff00; 
+  font-weight: 400;
 }
 
-/* Fade In */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Error Message - Red Console Text */
+.error-message {
+    margin-top: 20px;
+    font-size: 1rem;
+    /* Red for error feedback */
+    color: #ff0000; 
+    font-weight: 400;
 }
 
 /* Responsive */
 @media (max-width: 600px) {
   .contact-box {
-    padding: 25px 20px;
+    padding: 30px 20px;
   }
-  .contact-box h1 {
-    font-size: 1.6rem;
+  .contact-title {
+    font-size: 1.8rem;
   }
 }

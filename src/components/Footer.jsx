@@ -1,8 +1,26 @@
 import React from "react";
-import "./Home.css";
- // reuse existing styles
+// Assuming CSS styles are imported elsewhere or are global
+// reuse existing styles
 
 const Footer = ({ goToTechnology, goToAbout, goToContact }) => {
+  
+  // Helper function to handle scrolling and then page navigation
+  const handleNavigation = (navigateFn, ...args) => {
+    // 1. Scroll to the top of the viewport
+    window.scrollTo(0, 0);
+    
+    if (typeof navigateFn === 'function') {
+      // 2. IMPORTANT: Add a slight delay (300ms) to allow for
+      // an animated transition (e.g., top-to-bottom slide) 
+      // to be triggered in the main App component.
+      setTimeout(() => {
+        navigateFn(...args);
+      }, 300); 
+    } else {
+      console.warn("Navigation function not provided to Footer component:", navigateFn);
+    }
+  };
+
   return (
     <footer className="footer dark">
       <div className="footer-inner">
@@ -10,16 +28,18 @@ const Footer = ({ goToTechnology, goToAbout, goToContact }) => {
           <div className="footer-col">
             <h3>Discover</h3>
             <ul>
-              <li onClick={goToAbout}>About</li>
-              <li onClick={() => goToTechnology(null)}>Technologies</li>
-              <li onClick={goToContact}>Contact Us</li>
+              {/* Updated to use handleNavigation */}
+              <li onClick={() => handleNavigation(goToAbout)}>About</li>
+              <li onClick={() => handleNavigation(goToTechnology, null)}>Technologies</li>
+              <li onClick={() => handleNavigation(goToContact)}>Contact Us</li>
             </ul>
           </div>
           <div className="footer-col">
             <h3>Learn</h3>
             <ul>
-              <li onClick={() => goToTechnology("cyber")}>Cyber Security</li>
-              <li onClick={() => goToTechnology("web")}>Web Development</li>
+              {/* Updated to use handleNavigation */}
+              <li onClick={() => handleNavigation(goToTechnology, "cyber")}>Cyber Security</li>
+              <li onClick={() => handleNavigation(goToTechnology, "web")}>Web Development</li>
             </ul>
           </div>
         </div>

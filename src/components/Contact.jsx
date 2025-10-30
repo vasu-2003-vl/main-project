@@ -1,41 +1,45 @@
-// src/components/Contact.jsx
 import React, { useState } from "react";
+import { motion } from "framer-motion"; // Added motion import for animations
 import "./Contact.css";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import "./Home.css";
 
-export default function Contact({ goBack }) {
+// Removed: Navbar, Footer, and Home.css imports
+
+export default function Contact() {
+  // Removed: goBack prop
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    phone: "",
+    subject: "", 
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState(null); // State for displaying error messages
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (error) setError(null); // Clear error on typing
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setError(null); // Clear previous errors
 
     // Validation
-    const { name, email, phone, message } = formData;
-    if (!name || !email || !phone || !message) {
-      alert("⚠️ Please fill in all fields before sending!");
+    const { name, email, subject, message } = formData;
+    if (!name || !email || !subject || !message) {
+      // Set state to display error instead of using alert()
+      setError("⚠️ All fields are mandatory for secure transmission.");
       return;
     }
 
-    // You can replace this with an API call (like emailjs or backend endpoint)
-    console.log("Message Sent:", formData);
+    // You can replace this with an API call here
+    console.log("Transmission Initiated:", formData);
 
     setSubmitted(true);
     setFormData({
       name: "",
       email: "",
-      phone: "",
+      subject: "",
       message: "",
     });
 
@@ -53,25 +57,24 @@ export default function Contact({ goBack }) {
       {/* Dark Overlay */}
       <div className="contact-overlay"></div>
 
-      {/* Back Button */}
-      <button className="back-btn" onClick={goBack}>
-        ⬅ Back 
-      </button>
-
       {/* Contact Content */}
       <div className="contact-content">
-        <div className="contact-box">
-          <h1>Contact Us</h1>
-          <p>
-            We'd love to hear from you! Drop your queries, ideas, or feedback
-            below — our AI team will respond faster than light 
+        <motion.div 
+          className="contact-box"
+          initial={{ scale: 0.9, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1 className="contact-title">ENCRYPTED TRANSMISSION PROTOCOL</h1>
+          <p className="contact-subtitle">
+            Attention Agent: Use this terminal to report bugs, submit feedback, or request new quest lines. All transmissions are highly classified.
           </p>
 
           <form className="contact-form" onSubmit={handleSubmit}>
             <input
               type="text"
               name="name"
-              placeholder=" Your Name"
+              placeholder=" Agent Codename (Your Name)"
               value={formData.name}
               onChange={handleChange}
               required
@@ -79,22 +82,22 @@ export default function Contact({ goBack }) {
             <input
               type="email"
               name="email"
-              placeholder=" Your Email"
+              placeholder=" Secure Channel (Email Address)"
               value={formData.email}
               onChange={handleChange}
               required
             />
             <input
-              type="tel"
-              name="phone"
-              placeholder=" Phone Number"
-              value={formData.phone}
+              type="text"
+              name="subject"
+              placeholder=" Subject File (Bug Report, New Quest Idea, Feedback)"
+              value={formData.subject}
               onChange={handleChange}
               required
             />
             <textarea
               name="message"
-              placeholder=" Your Message"
+              placeholder=" Detailed Transmission (Your Message)"
               rows="5"
               value={formData.message}
               onChange={handleChange}
@@ -102,17 +105,32 @@ export default function Contact({ goBack }) {
             ></textarea>
 
             <button type="submit" className="send-btn">
-              Send Message
+              INITIATE TRANSMISSION
             </button>
           </form>
 
+          {/* Error Message Display */}
+          {error && (
+            <motion.p 
+                className="error-message"
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+            >
+              {error}
+            </motion.p>
+          )}
+
           {/* Success Message */}
           {submitted && (
-            <p className="success-message">
-              ✅ Message sent successfully! We'll reach out soon.
-            </p>
+            <motion.p 
+                className="success-message"
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+            >
+              ✅ Transmission received. Awaiting command response.
+            </motion.p>
           )}
-        </div>
+        </motion.div>
       </div>
     </div>
   );
