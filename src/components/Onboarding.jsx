@@ -102,18 +102,32 @@ export default function Onboarding({ goToTechnology }) {
         // Save the selected technology before moving on
         localStorage.setItem("selectedTechnology", selected);
       }
+      // Check if this is the playground step (step 7)
+      if (step === 7) {
+        // Save the playground choice
+        localStorage.setItem("selectedPlayground", selected);
+        if (selected === "anime") {
+          // Redirect to partone app
+          window.location.href = "http://localhost:3000";
+          return;
+        } else if (selected === "scientific") {
+          // Redirect to parttwo app
+          window.location.href = "http://localhost:5174";
+          return;
+        }
+      }
       setStep((s) => s + 1);
       setSelected(null); // Clear selection for the next step
     } else {
       // Final Step Logic
-      setShowConfetti(true); 
+      setShowConfetti(true);
       setTimeout(() => setShowConfetti(false), 2500);
 
       // Navigate to Technology page using the stored selection from step 1
       if (typeof goToTechnology === "function") {
         const selectedTechId = localStorage.getItem("selectedTechnology") || "sec"; // Default to 'sec'
         localStorage.removeItem("selectedTechnology"); // Clean up storage
-        goToTechnology(selectedTechId); 
+        goToTechnology(selectedTechId);
       }
     }
   };
